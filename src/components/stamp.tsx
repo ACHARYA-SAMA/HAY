@@ -1,0 +1,1 @@
+export function Stamp({children,rotation=-4}:{children:React.ReactNode;rotation?:number}){return <span className="stamp" style={{"--stamp-rotation":`${rotation}deg`} as React.CSSProperties}>{children}</span>}

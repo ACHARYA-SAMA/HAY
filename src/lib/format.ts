@@ -1,0 +1,2 @@
+export const money = new Intl.NumberFormat("en-IN", { style: "currency", currency: "INR", maximumFractionDigits: 0 });
+export const shortDate = (value: string) => new Intl.DateTimeFormat("en-IN", { timeZone:"Asia/Kolkata", weekday:"short", day:"numeric", month:"short" }).format(new Date(value));

@@ -1,0 +1,2 @@
+import { QRCodeSVG } from "qrcode.react";
+export function QrTicket({id}:{id:string}){return <div className="qr-tile"><QRCodeSVG value={`eyJhbGciOiJIUzI1NiJ9.hay-ticket-${id}.mock-signature`} size={220} level="H" bgColor="#ffffff" fgColor="#000000"/><span className="font-mono text-xs font-bold">SCAN AT THE GATE</span></div>}

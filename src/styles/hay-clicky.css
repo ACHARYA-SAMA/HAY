@@ -1,0 +1,140 @@
+/* Adapted from reference/clicky/hay-clicky.css. Imported in layer(components).
+   The disabled hatch is the only gradient allowed in this file. */
+.clicky {
+  --o: 6px;
+  --lift: 2px;
+  --accent: var(--event);
+  --face: var(--card);
+  --wipe: var(--accent);
+  --txt: var(--ink);
+  --txt-hover: var(--on-accent);
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .6ch;
+  min-height: 44px;
+  min-width: 44px;
+  padding: .7em 1.25em;
+  font: 800 14px/1.2 var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--txt);
+  background-color: var(--face);
+  border: 3px solid var(--ink);
+  border-radius: 0;
+  box-shadow: var(--o) var(--o) 0 var(--ink);
+  transform: translate(0, 0);
+  transition: transform 90ms steps(3, end), box-shadow 90ms steps(3, end);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+.clicky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--wipe);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 120ms steps(4, end);
+}
+@media (hover: hover) {
+  .clicky:hover:not(:where(:disabled, [aria-disabled="true"], [aria-busy="true"], [aria-pressed="true"], [aria-selected="true"], [aria-current="page"], :has(input:checked))) {
+    transform: translate(calc(-1 * var(--lift)), calc(-1 * var(--lift)));
+    box-shadow: calc(var(--o) + var(--lift)) calc(var(--o) + var(--lift)) 0 var(--ink);
+    color: var(--txt-hover);
+  }
+  .clicky:hover:not(:where(:disabled, [aria-disabled="true"], [aria-busy="true"], [aria-pressed="true"], [aria-selected="true"], [aria-current="page"], :has(input:checked)))::before { transform: scaleY(1); }
+}
+.clicky:is(:active, .is-pressed):not(:disabled, [aria-disabled="true"], [aria-busy="true"]) {
+  transform: translate(var(--o), var(--o));
+  box-shadow: 0 0 0 var(--ink);
+  color: var(--txt-hover);
+  transition-duration: 40ms;
+}
+.clicky:is(:active, .is-pressed):not(:disabled, [aria-disabled="true"], [aria-busy="true"])::before { transform: scaleY(1); }
+.clicky.pop:not(:disabled, [aria-disabled="true"], [aria-busy="true"], [aria-pressed="true"], [aria-selected="true"], [aria-current="page"], :has(input:checked)) { animation: clicky-pop 140ms steps(3, end); }
+@keyframes clicky-pop { 0% { transform: translate(2px, 2px); } 45% { transform: translate(-3px, -3px); } }
+.clicky:focus-visible, .clicky:has(input:focus-visible) { outline: 4px solid var(--ink); outline-offset: 3px; }
+.clicky:is([aria-pressed="true"], [aria-selected="true"], [aria-current="page"], :has(input:checked)) {
+  transform: translate(var(--o), var(--o));
+  box-shadow: 0 0 0 var(--ink);
+  background-color: var(--ink);
+  color: var(--paper);
+}
+.clicky:is([aria-pressed="true"], [aria-selected="true"], [aria-current="page"], :has(input:checked))::before { transform: scaleY(0); }
+.clicky--movie { --accent: var(--movie); }
+.clicky--event { --accent: var(--event); }
+.clicky--sport { --accent: var(--sport); }
+.clicky--bus { --accent: var(--bus); }
+.clicky--train { --accent: var(--train); --txt-hover: var(--on-train); }
+.clicky--flight { --accent: var(--flight); }
+.clicky--primary { --face: var(--accent); --wipe: var(--ink); --txt: var(--on-accent); --txt-hover: var(--paper); }
+.clicky--train.clicky--primary { --txt: var(--on-train); }
+/* Keep the existing default Button's ink face; category primary slabs use the reference fill. */
+.clicky--primary.clicky--ink { --face: var(--ink); --wipe: var(--accent); --txt: var(--paper); --txt-hover: var(--on-accent); }
+.clicky--primary.clicky--ink.clicky--train { --txt-hover: var(--on-train); }
+.clicky--secondary { --face: var(--paper-2); }
+.clicky--ghost { --face: transparent; }
+.clicky--sm { --o: 3px; min-height: 44px; padding: .5em .9em; font-size: 12px; }
+.clicky--lg { --o: 8px; min-height: 56px; padding: .9em 1.6em; font-size: 17px; }
+.clicky--icon { --o: 3px; width: 46px; height: 46px; padding: 0; flex-shrink: 0; }
+.clicky--seat {
+  --o: 3px;
+  min-width: 36px;
+  min-height: 36px;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 0;
+  font: 700 11px/1 var(--font-mono);
+}
+/* Expand the existing seat face to a 44px hit area without widening its grid. */
+.clicky--seat::after {
+  content: "";
+  position: absolute;
+  inset-inline-start: 50%;
+  inset-block-start: 50%;
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+  min-width: 44px;
+  min-height: 44px;
+  transform: translate(-50%, -50%);
+}
+.clicky--seat[aria-selected="true"] { box-shadow: inset 0 0 0 2px var(--accent); }
+.clicky:is(:disabled, [aria-disabled="true"]):not([aria-busy="true"]) {
+  cursor: not-allowed;
+  color: var(--ink-soft);
+  background-color: var(--paper-2);
+  background-image: repeating-linear-gradient(135deg, transparent 0 6px, var(--card) 6px 8px);
+  transform: none;
+  box-shadow: 3px 3px 0 var(--ink);
+  animation: none;
+}
+.clicky:is(:disabled, [aria-disabled="true"], [aria-busy="true"])::before { transform: scaleY(0); }
+.clicky[aria-busy="true"] { cursor: progress; transform: none; animation: none; }
+.clicky[aria-busy="true"]::after {
+  content: "...";
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: clicky-dots 900ms steps(4) infinite;
+}
+@keyframes clicky-dots { to { width: 3ch; } }
+.clicky.header-search { --face: var(--paper); --o: 3px; justify-content: flex-start; }
+.clicky.header-search svg { flex-shrink: 0; font-size: 20px; }
+.clicky.category-slab { align-items: flex-start; letter-spacing: 0; }
+.clicky.travel-tab { flex-direction: column; }
+.clicky.ticket-open { padding: 4px; --o: 3px; min-width: 44px; font-size: 11px; }
+.clicky.mobile-tab { --o: 3px; --face: var(--paper); padding: 4px; letter-spacing: 0; }
+.clicky.filter-chip, .clicky.payment-slab { justify-content: flex-start; text-align: start; }
+@media (prefers-reduced-motion: reduce) {
+  .clicky, .clicky::before { transition: none; }
+  .clicky.pop, .clicky[aria-busy="true"]::after { animation: none; }
+  .clicky[aria-busy="true"]::after { width: 3ch; }
+}

@@ -1,0 +1,125 @@
+/* hay-clicky.css: physical, clicky interaction layer for HAY.
+   Uses your existing tokens (--ink, --paper, --card, --c-*) with fallbacks.
+   Hatch in [disabled] uses a gradient: put this file on the slop-audit allowlist. */
+
+.clicky {
+  --o: 6px;                 /* resting shadow offset = key travel */
+  --lift: 2px;              /* hover lift */
+  --accent: var(--c-event, #C8F031);
+  --face: var(--card, #FFFBEF);
+  --wipe: var(--accent);    /* colour that fills in on hover */
+  --txt: var(--ink, #0B0B0A);
+  --txt-hover: #0B0B0A;
+
+  position: relative;
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6ch;
+  min-height: 44px;
+  padding: 0.7em 1.25em;
+  font: 800 14px/1 var(--font-display, "Archivo", sans-serif);
+  font-stretch: 110%;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--txt);
+  background-color: var(--face);
+  border: 3px solid var(--ink, #0B0B0A);
+  border-radius: 0;
+  box-shadow: var(--o) var(--o) 0 var(--ink, #0B0B0A);
+  transform: translate(0, 0);
+  transition: transform 90ms steps(3, end), box-shadow 90ms steps(3, end);
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* the ink fill that wipes up from the bottom edge (no gradient, just a scaled box) */
+.clicky::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--wipe);
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 120ms steps(4, end);
+}
+
+/* hover only where hover exists, so touch screens never get stuck states */
+@media (hover: hover) {
+  .clicky:hover:not([disabled], [aria-disabled="true"], [aria-pressed="true"]) {
+    transform: translate(calc(var(--lift) * -1), calc(var(--lift) * -1));
+    box-shadow: calc(var(--o) + var(--lift)) calc(var(--o) + var(--lift)) 0 var(--ink, #0B0B0A);
+    color: var(--txt-hover);
+  }
+  .clicky:hover:not([disabled], [aria-disabled="true"])::before { transform: scaleY(1); }
+}
+
+/* press: the face sinks all the way into its own shadow */
+.clicky:active:not([disabled], [aria-disabled="true"]) {
+  transform: translate(var(--o), var(--o));
+  box-shadow: 0 0 0 var(--ink, #0B0B0A);
+  color: var(--txt-hover);
+  transition-duration: 40ms;
+}
+.clicky:active:not([disabled], [aria-disabled="true"])::before { transform: scaleY(1); }
+
+/* release: a tiny overshoot, added by hay-clicky.js */
+.clicky.pop { animation: clicky-pop 140ms steps(3, end); }
+@keyframes clicky-pop {
+  0%   { transform: translate(2px, 2px); }
+  45%  { transform: translate(-3px, -3px); }
+}
+
+.clicky:focus-visible { outline: 4px solid var(--ink, #0B0B0A); outline-offset: 3px; }
+
+/* latching switch (squad toggle, filters, seats): stays sunk while on */
+.clicky[aria-pressed="true"] {
+  transform: translate(var(--o), var(--o));
+  box-shadow: 0 0 0 var(--ink, #0B0B0A);
+  background-color: var(--ink, #0B0B0A);
+  color: var(--paper, #F1ECDD);
+}
+
+/* variants */
+.clicky--movie  { --accent: var(--c-movie,  #FF4B2B); }
+.clicky--event  { --accent: var(--c-event,  #C8F031); }
+.clicky--sport  { --accent: var(--c-sport,  #FF6FB5); }
+.clicky--bus    { --accent: var(--c-bus,    #FFB703); }
+.clicky--train  { --accent: var(--c-train,  #3A5BFF); --txt-hover: #fff; }
+.clicky--flight { --accent: var(--c-flight, #4DE0E0); }
+.clicky--primary { --face: var(--accent); --wipe: var(--ink, #0B0B0A); --txt: #0B0B0A; --txt-hover: var(--paper, #F1ECDD); }
+.clicky--train.clicky--primary { --txt: #fff; }
+
+/* sizes */
+.clicky--sm { --o: 3px; --lift: 1px; min-height: 36px; padding: 0.5em 0.9em; font-size: 12px; }
+.clicky--lg { --o: 8px; --lift: 3px; min-height: 56px; padding: 0.9em 1.6em; font-size: 17px; }
+.clicky--seat { --o: 3px; --lift: 1px; width: 38px; min-height: 38px; padding: 0; font: 700 11px/1 var(--font-mono, monospace); }
+
+/* disabled: no lift, no press, hatched */
+.clicky[disabled], .clicky[aria-disabled="true"] {
+  cursor: not-allowed;
+  color: color-mix(in srgb, var(--ink, #0B0B0A) 55%, transparent);
+  background-image: repeating-linear-gradient(135deg, transparent 0 6px, color-mix(in srgb, var(--ink, #0B0B0A) 18%, transparent) 6px 8px);
+  box-shadow: 3px 3px 0 var(--ink, #0B0B0A);
+}
+
+/* loading: "PRINTING..." with stepped dots */
+.clicky[aria-busy="true"] { pointer-events: none; }
+.clicky[aria-busy="true"]::after {
+  content: "...";
+  display: inline-block;
+  width: 0;
+  overflow: hidden;
+  vertical-align: bottom;
+  animation: clicky-dots 900ms steps(4) infinite;
+}
+@keyframes clicky-dots { to { width: 3ch; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .clicky, .clicky::before { transition: none; }
+  .clicky.pop, .clicky[aria-busy="true"]::after { animation: none; }
+}

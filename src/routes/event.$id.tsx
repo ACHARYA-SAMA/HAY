@@ -1,0 +1,3 @@
+import { getListing } from "@/services";
+import { createFileRoute } from "@tanstack/react-router";import { ListingDetail } from "@/components/listing-detail";
+export const Route=createFileRoute("/event/$id")({loader:({params})=>getListing(params.id,"event"),head:()=>({meta:[{title:"Live event tickets — HAY"},{name:"description",content:"Pick an event date and ticket tier."},{property:"og:title",content:"Live event tickets — HAY"},{property:"og:description",content:"Pick an event date and ticket tier."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Page});function Page(){return <ListingDetail item={Route.useLoaderData()}/>}

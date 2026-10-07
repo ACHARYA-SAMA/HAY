@@ -1,0 +1,5 @@
+import { Link } from "@tanstack/react-router";
+import { FilmSlate, SpeakerHigh, SoccerBall, Bus, Train, AirplaneTilt } from "@phosphor-icons/react";
+import type { Category } from "@/services/types";
+const items:{key:Category;label:string;count:number;Icon:typeof FilmSlate}[]=[{key:"movie",label:"Movies",count:24,Icon:FilmSlate},{key:"event",label:"Live",count:18,Icon:SpeakerHigh},{key:"sport",label:"Sports",count:9,Icon:SoccerBall},{key:"bus",label:"Buses",count:82,Icon:Bus},{key:"train",label:"Trains",count:46,Icon:Train},{key:"flight",label:"Flights",count:31,Icon:AirplaneTilt}];
+export function CategorySwitch(){return <div className="category-switch">{items.map(({key,label,count,Icon})=><Link key={key} to="/explore" search={{cat:key}} className={`category-slab clicky clicky--primary clicky--${key}`}><Icon weight="fill" size={42}/><span className="text-2xl font-black uppercase">{label}</span><b className="font-mono text-xs">{count} LIVE</b></Link>)}</div>}

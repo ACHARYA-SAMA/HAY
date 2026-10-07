@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HAY: clicky demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&family=Martian+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hay-clicky.css">
+<style>
+  :root { --paper:#F1ECDD; --card:#FFFBEF; --ink:#0B0B0A;
+    --c-movie:#FF4B2B; --c-event:#C8F031; --c-sport:#FF6FB5; --c-bus:#FFB703; --c-train:#3A5BFF; --c-flight:#4DE0E0;
+    --font-display:"Archivo",sans-serif; --font-mono:"Martian Mono",monospace; }
+  [data-theme="dark"] { --paper:#0F0F0D; --card:#1C1C18; --ink:#F4EFE0; }
+  * { box-sizing: border-box; }
+  body { margin:0; padding:32px 24px 80px; background:var(--paper); color:var(--ink); font:500 16px/1.4 var(--font-display); }
+  main { max-width: 980px; margin-inline:auto; }
+  h1 { font:900 clamp(48px,9vw,112px)/.85 var(--font-display); font-stretch:125%; text-transform:uppercase; margin:0 0 8px; }
+  h2 { font:800 12px/1 var(--font-mono); letter-spacing:.08em; text-transform:uppercase; margin:40px 0 16px; padding-top:12px; border-top:3px solid var(--ink); }
+  .row { display:flex; flex-wrap:wrap; gap:18px 22px; align-items:center; }
+  .seats { display:grid; grid-template-columns:repeat(8,38px); gap:10px; }
+  .taken { background-image:repeating-linear-gradient(135deg,transparent 0 6px,rgba(128,128,128,.4) 6px 8px); }
+  .stage { position:relative; display:inline-block; }
+  .stamp { position:absolute; inset-inline-start:100%; top:-14px; margin-inline-start:18px; padding:6px 14px; border:5px solid var(--c-movie); color:var(--c-movie);
+    font:900 28px/1 var(--font-display); font-stretch:125%; letter-spacing:.06em; transform:rotate(-5deg); opacity:0; pointer-events:none; white-space:nowrap; }
+  .stamp.slam { animation: slam 240ms steps(4,end) forwards; }
+  @keyframes slam { 0% { opacity:1; transform:rotate(-9deg) scale(1.6); } 100% { opacity:1; transform:rotate(-5deg) scale(1); } }
+  .nudge { animation: nudge 80ms steps(1,end); }
+  @keyframes nudge { 0% { transform: translate(3px,3px); } }
+  @media (prefers-reduced-motion: reduce) { .stamp.slam { animation:none; opacity:1; } .nudge { animation:none; } }
+</style>
+</head>
+<body>
+<main>
+  <div class="row" style="justify-content:space-between">
+    <h1>Clicky.</h1>
+    <div class="row">
+      <button class="clicky clicky--sm" id="theme" aria-pressed="false">Night Press</button>
+      <button class="clicky clicky--sm" id="snd" aria-pressed="false">Sound: off</button>
+    </div>
+  </div>
+  <p>Hover to lift, hold to sink, release for the pop. On a phone you also get a tiny haptic tick.</p>
+
+  <h2>Category buttons (hover fills with the category ink)</h2>
+  <div class="row">
+    <button class="clicky clicky--movie">Movies</button>
+    <button class="clicky clicky--event">Events</button>
+    <button class="clicky clicky--sport">Sports</button>
+    <button class="clicky clicky--bus">Bus</button>
+    <button class="clicky clicky--train">Train</button>
+    <button class="clicky clicky--flight">Flights</button>
+  </div>
+
+  <h2>Primary, sizes, states</h2>
+  <div class="row">
+    <button class="clicky clicky--primary clicky--lg clicky--movie">Pick seats</button>
+    <button class="clicky clicky--primary clicky--event">Book now</button>
+    <button class="clicky clicky--primary clicky--sm clicky--flight">Details</button>
+    <button class="clicky" disabled>Sold out</button>
+    <button class="clicky clicky--primary clicky--bus" id="pay">Pay ₹640</button>
+  </div>
+
+  <h2>Latching switches (they stay sunk)</h2>
+  <div class="row">
+    <button class="clicky clicky--event" aria-pressed="false" data-latch>Book as a squad</button>
+    <button class="clicky clicky--flight" aria-pressed="true" data-latch>Wheelchair</button>
+    <button class="clicky clicky--bus" aria-pressed="false" data-latch>Hearing</button>
+    <button class="clicky clicky--sport" aria-pressed="false" data-latch>Senior-friendly</button>
+  </div>
+
+  <h2>Seats</h2>
+  <div class="seats" id="seats"></div>
+
+  <h2>Confirm (stamp slam)</h2>
+  <div class="stage">
+    <button class="clicky clicky--primary clicky--lg clicky--movie" id="book">Book it</button>
+    <span class="stamp" id="stamp">BOOKED.</span>
+  </div>
+</main>
+
+<script src="hay-clicky.js"></script>
+<script>
+  const $ = (s) => document.querySelector(s);
+  document.querySelectorAll("[data-latch]").forEach(b => b.addEventListener("click", () => b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true")));
+  $("#theme").addEventListener("click", (e) => { const dark = document.documentElement.dataset.theme !== "dark"; document.documentElement.dataset.theme = dark ? "dark" : "light"; e.currentTarget.setAttribute("aria-pressed", dark); });
+  $("#snd").addEventListener("click", (e) => { const on = e.currentTarget.getAttribute("aria-pressed") !== "true"; HAYClicky.setSound(on); e.currentTarget.setAttribute("aria-pressed", on); e.currentTarget.textContent = "Sound: " + (on ? "on" : "off"); });
+  $("#pay").addEventListener("click", (e) => { const b = e.currentTarget; b.setAttribute("aria-busy", "true"); b.firstChild.textContent = "Printing"; setTimeout(() => { b.removeAttribute("aria-busy"); b.firstChild.textContent = "Pay ₹640"; }, 1600); });
+  $("#book").addEventListener("click", () => { const s = $("#stamp"); s.classList.remove("slam"); void s.offsetWidth; s.classList.add("slam"); document.body.classList.remove("nudge"); void document.body.offsetWidth; document.body.classList.add("nudge"); });
+  const seats = $("#seats"), taken = new Set([2, 3, 9, 14, 15, 20, 27]);
+  for (let i = 0; i < 32; i++) {
+    const b = document.createElement("button");
+    b.className = "clicky clicky--seat clicky--movie" + (taken.has(i) ? " taken" : "");
+    b.textContent = String.fromCharCode(65 + (i >> 3)) + ((i % 8) + 1);
+    b.setAttribute("aria-label", "Row " + String.fromCharCode(65 + (i >> 3)) + ", seat " + ((i % 8) + 1) + (taken.has(i) ? ", taken" : ", available"));
+    if (taken.has(i)) b.setAttribute("aria-disabled", "true"); else { b.setAttribute("aria-pressed", "false"); b.addEventListener("click", () => b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") !== "true")); }
+    seats.appendChild(b);
+  }
+</script>
+</body>
+</html>
