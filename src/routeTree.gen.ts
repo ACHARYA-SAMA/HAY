@@ -16,6 +16,7 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as ExploreRouteImport } from './routes/explore'
 import { Route as FlightsRouteImport } from './routes/flights'
 import { Route as MoviesRouteImport } from './routes/movies'
+import { Route as SearchRouteImport } from './routes/search'
 import { Route as SportsRouteImport } from './routes/sports'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
 import { Route as TrainsRouteImport } from './routes/trains'
@@ -66,6 +67,11 @@ const FlightsRoute = FlightsRouteImport.update({
 const MoviesRoute = MoviesRouteImport.update({
   id: '/movies',
   path: '/movies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SearchRoute = SearchRouteImport.update({
+  id: '/search',
+  path: '/search',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsRoute = SportsRouteImport.update({
@@ -157,6 +163,7 @@ export interface FileRoutesByFullPath {
   '/explore': typeof ExploreRoute
   '/flights': typeof FlightsRoute
   '/movies': typeof MoviesRoute
+  '/search': typeof SearchRoute
   '/sports': typeof SportsRoute
   '/styleguide': typeof StyleguideRoute
   '/trains': typeof TrainsRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/explore': typeof ExploreRoute
   '/flights': typeof FlightsRoute
   '/movies': typeof MoviesRoute
+  '/search': typeof SearchRoute
   '/sports': typeof SportsRoute
   '/styleguide': typeof StyleguideRoute
   '/trains': typeof TrainsRoute
@@ -208,6 +216,7 @@ export interface FileRoutesById {
   '/explore': typeof ExploreRoute
   '/flights': typeof FlightsRoute
   '/movies': typeof MoviesRoute
+  '/search': typeof SearchRoute
   '/sports': typeof SportsRoute
   '/styleguide': typeof StyleguideRoute
   '/trains': typeof TrainsRoute
@@ -235,6 +244,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/flights'
     | '/movies'
+    | '/search'
     | '/sports'
     | '/styleguide'
     | '/trains'
@@ -260,6 +270,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/flights'
     | '/movies'
+    | '/search'
     | '/sports'
     | '/styleguide'
     | '/trains'
@@ -285,6 +296,7 @@ export interface FileRouteTypes {
     | '/explore'
     | '/flights'
     | '/movies'
+    | '/search'
     | '/sports'
     | '/styleguide'
     | '/trains'
@@ -311,6 +323,7 @@ export interface RootRouteChildren {
   ExploreRoute: typeof ExploreRoute
   FlightsRoute: typeof FlightsRoute
   MoviesRoute: typeof MoviesRoute
+  SearchRoute: typeof SearchRoute
   SportsRoute: typeof SportsRoute
   StyleguideRoute: typeof StyleguideRoute
   TrainsRoute: typeof TrainsRoute
@@ -378,6 +391,13 @@ declare module '@tanstack/react-router' {
       path: '/movies'
       fullPath: '/movies'
       preLoaderRoute: typeof MoviesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/search': {
+      id: '/search'
+      path: '/search'
+      fullPath: '/search'
+      preLoaderRoute: typeof SearchRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sports': {
@@ -503,6 +523,7 @@ const rootRouteChildren: RootRouteChildren = {
   ExploreRoute: ExploreRoute,
   FlightsRoute: FlightsRoute,
   MoviesRoute: MoviesRoute,
+  SearchRoute: SearchRoute,
   SportsRoute: SportsRoute,
   StyleguideRoute: StyleguideRoute,
   TrainsRoute: TrainsRoute,

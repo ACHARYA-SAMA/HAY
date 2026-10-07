@@ -1,8 +1,79 @@
-import { Link } from '@tanstack/react-router';
-import { Moon,Sun } from '@phosphor-icons/react';
-import { BRAND_NAME } from '@/config/brand';
-import { useAppStore } from '@/stores/app-store';
-import { useEffect } from 'react';
-import { sectionNames,sectionPaths } from '@/services/navigation';
-import { categories } from '@/services/types';
-export function Shell({children}:{children:React.ReactNode}){const theme=useAppStore(s=>s.theme),setTheme=useAppStore(s=>s.setTheme);useEffect(()=>{void import('@/lib/hay-clicky.js');if(!useAppStore.persist.hasHydrated())void useAppStore.persist.rehydrate()},[]);useEffect(()=>{const dark=theme==='dark'||(theme==='system'&&matchMedia('(prefers-color-scheme: dark)').matches);document.documentElement.dataset['theme']=dark?'dark':'light'},[theme]);return <><div className="marquee"><span>EVENING SHOWS FILLING FAST • SC TO VSKP: 14 BERTHS LEFT • GATE 9 NOW BOARDING • NO SIX APPS. ONE POCKET. • </span></div><header className="site-header section-header"><Link to="/" className="wordmark">{BRAND_NAME}<i/></Link><Link to="/explore" search={{}} className="header-search clicky clicky--sm">FIND A TICKET</Link><button aria-label="Change color theme" className="icon-button clicky clicky--icon clicky--primary clicky--bus" onClick={()=>setTheme(theme==='dark'?'light':'dark')}>{theme==='dark'?<Sun weight="fill"/>:<Moon weight="fill"/>}</button><nav className="section-nav" aria-label="Ticket sections">{categories.map(cat=><Link key={cat} to={sectionPaths[cat]} search={{}} activeProps={{'aria-current':'page'}}>{sectionNames[cat]}</Link>)}<Link to="/wallet">Wallet</Link><Link to="/account">Account</Link></nav></header><main>{children}</main><footer className="site-footer"><div><b>GET THERE.</b><p>Films, fields, stages, stations and skies.</p></div><nav className="footer-links" aria-label="Footer">{categories.map(cat=><Link key={cat} to={sectionPaths[cat]} search={{}}>{sectionNames[cat]}</Link>)}<Link to="/explore" search={{}}>Explore everything</Link><Link to="/wallet">Wallet</Link></nav><strong>{BRAND_NAME}</strong></footer></>}
+import { GlobalSearch } from "./global-search";
+import { Link } from "@tanstack/react-router";
+import { Moon, Sun } from "@phosphor-icons/react";
+import { BRAND_NAME } from "@/config/brand";
+import { useAppStore } from "@/stores/app-store";
+import { useEffect } from "react";
+import { sectionNames, sectionPaths } from "@/services/navigation";
+import { categories } from "@/services/types";
+export function Shell({ children }: { children: React.ReactNode }) {
+  const theme = useAppStore((s) => s.theme),
+    setTheme = useAppStore((s) => s.setTheme);
+  useEffect(() => {
+    void import("@/lib/hay-clicky.js");
+    if (!useAppStore.persist.hasHydrated()) void useAppStore.persist.rehydrate();
+  }, []);
+  useEffect(() => {
+    const dark =
+      theme === "dark" ||
+      (theme === "system" && matchMedia("(prefers-color-scheme: dark)").matches);
+    document.documentElement.dataset["theme"] = dark ? "dark" : "light";
+  }, [theme]);
+  return (
+    <>
+      <div className="marquee">
+        <span>
+          EVENING SHOWS FILLING FAST • SC TO VSKP: 14 BERTHS LEFT • GATE 9 NOW BOARDING • NO SIX
+          APPS. ONE POCKET. •{" "}
+        </span>
+      </div>
+      <header className="site-header section-header">
+        <Link to="/" className="wordmark">
+          {BRAND_NAME}
+          <i />
+        </Link>
+        <GlobalSearch />
+        <button
+          aria-label="Change color theme"
+          className="icon-button clicky clicky--icon clicky--primary clicky--bus"
+          onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+        >
+          {theme === "dark" ? <Sun weight="fill" /> : <Moon weight="fill" />}
+        </button>
+        <nav className="section-nav" aria-label="Ticket sections">
+          {categories.map((cat) => (
+            <Link
+              key={cat}
+              to={sectionPaths[cat]}
+              search={{}}
+              activeProps={{ "aria-current": "page" }}
+            >
+              {sectionNames[cat]}
+            </Link>
+          ))}
+          <Link to="/wallet">Wallet</Link>
+          <Link to="/account">Account</Link>
+        </nav>
+      </header>
+      <main>{children}</main>
+      <footer className="site-footer">
+        <div>
+          <b>GET THERE.</b>
+          <p>Films, fields, stages, stations and skies.</p>
+        </div>
+        <nav className="footer-links" aria-label="Footer">
+          {categories.map((cat) => (
+            <Link key={cat} to={sectionPaths[cat]} search={{}}>
+              {sectionNames[cat]}
+            </Link>
+          ))}
+          <Link to="/explore" search={{}}>
+            Explore everything
+          </Link>
+          <Link to="/wallet">Wallet</Link>
+        </nav>
+        <strong>{BRAND_NAME}</strong>
+      </footer>
+    </>
+  );
+}

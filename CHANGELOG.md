@@ -59,3 +59,8 @@ Added URL-driven Movies, Events, Sports, Bus, Trains and Flights pages with sect
 - Travel facts persist through summary, receipt, wallet and ticket; movie venue/showtime choices persist too. New serials use HAY-, with legacy serial migration.
 - Fixed detail route nesting exposed by full-flow tests. Added six Playwright booking tests through wallet reload and ticket opening.
 - Verified: 35 unit tests, six category E2Es, TypeScript, zero slop findings, 18 viewport/theme checks.
+
+## Priority step 4 — one real search
+- Header and hero share grouped title/route/station suggestions, keyboard navigation, Escape, slash and Ctrl/Cmd+K shortcuts.
+- Search results span all categories with shareable category tabs and a useful empty state. Hero copy is no longer duplicated; GO and its arrow stay together.
+- Verified: 37 unit tests, keyboard/search E2E, TypeScript, zero slop findings, 18 viewport/theme checks. Home screenshots retained as the Night Press baseline.
