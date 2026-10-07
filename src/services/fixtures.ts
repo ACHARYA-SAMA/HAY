@@ -1,19 +1,25 @@
-import { fixtureDate } from "./fixture-dates";
-import type { Listing, TicketData } from "./types";
-
+import { fixtureDate } from './fixture-dates';
+import { listingSchema,type Listing,type TicketData,type Category } from './types';
+const movieNames=['Afterlight 77','Monsoon Radio','Paper Moons','The Last Platform','Copper Skies','Window Number Nine','Rain Check','Midnight Archive','Side B Summer','City of Kites'];
+const eventNames=['Static Hearts Live','Neon Circus','Velvet Satellite','The Paper Choir','Blue Lantern Sessions','Copperfield Quartet','After Hours Assembly','Soft Signal Festival'];
+const sportNames=['Hyderabad v Vizag','City Derby 04','Rivercourt Open','Night Runners Cup','Deccan Shuttle League','Harbour Hoops Final'];
+const slug=(s:string)=>s.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+const cities=[['Hyderabad','SC','Secunderabad Junction','HYD','Rajiv Gandhi International Airport','MGBS'],['Bengaluru','SBC','KSR Bengaluru','BLR','Kempegowda International Airport','Majestic Bus Station'],['Chennai','MAS','Chennai Central','MAA','Chennai International Airport','Koyambedu Bus Terminus'],['Mumbai','CSMT','Chhatrapati Shivaji Maharaj Terminus','BOM','Chhatrapati Shivaji Maharaj International Airport','Dadar Bus Stand'],['Pune','PUNE','Pune Junction','PNQ','Pune Airport','Swargate Bus Station'],['Visakhapatnam','VSKP','Visakhapatnam Junction','VTZ','Visakhapatnam Airport','Dwaraka Bus Station'],['Delhi','NDLS','New Delhi Railway Station','DEL','Indira Gandhi International Airport','Kashmere Gate ISBT']] as const;
 export function getInventory(today=new Date()){
-const day=(offset:number)=>fixtureDate(offset,today);
-const listings: Listing[] = [
-  { id:"afterlight", category:"movie", title:"Afterlight 77", venue:"Prasads Multiplex", city:"Hyderabad", date:day(0), time:"7:20 PM", price:320, tag:"DOLBY" },
-  { id:"monsoon-radio", category:"movie", title:"Monsoon Radio", venue:"AMB Cinemas", city:"Hyderabad", date:day(0), time:"9:40 PM", price:280, tag:"SCREEN 4" },
-  { id:"static-hearts", category:"event", title:"Static Hearts Live", venue:"HITEX Hall 4", city:"Hyderabad", date:day(1), time:"8:00 PM", price:1499, tag:"LIVE" },
-  { id:"neon-circus", category:"event", title:"Neon Circus", venue:"Odeum Grounds", city:"Pune", date:day(4), time:"6:30 PM", price:899, tag:"OPEN AIR" },
-  { id:"hyd-viz", category:"sport", title:"Hyderabad v Vizag", venue:"Deccan Arena", city:"Hyderabad", date:day(2), time:"7:30 PM", price:650, tag:"T20" },
-  { id:"city-derby", category:"sport", title:"City Derby 04", venue:"Coastal Stadium", city:"Chennai", date:day(5), time:"6:00 PM", price:520, tag:"LEAGUE" },
-  { id:"nightliner", category:"bus", title:"Nightliner 22", venue:"MGBS Bay 18", city:"Hyderabad", from:"Hyderabad", to:"Bengaluru", date:day(0), time:"22:15", price:1190, tag:"SLEEPER" },
-  { id:"coast-rail", category:"train", title:"Coast Express", venue:"Secunderabad Jn (SC)", city:"Hyderabad", from:"Secunderabad", to:"Visakhapatnam", date:day(1), time:"06:10", price:1840, tag:"3A · AVL 042" },
-  { id:"sky-601", category:"flight", title:"Aero South 601", venue:"Rajiv Gandhi Intl (HYD)", city:"Hyderabad", from:"HYD", to:"BOM", date:day(2), time:"14:35", price:5840, tag:"NONSTOP" },
-];
-const tickets: TicketData[] = listings.slice(0,4).map((l,i)=>({...l,date:i===3?day(-4):l.date,serial:`HY-${String(42810+i).padStart(6,"0")}`,seat:["F7","GA-2","B-14","U12"][i] ?? "GA",status:i===3?"past":"upcoming"}));
-return {listings,tickets};
+ const day=(n:number)=>fixtureDate(n,today),listings:Listing[]=[];
+ movieNames.forEach((title,i)=>{const city=i<8?'Hyderabad':'Chennai',language=['Telugu','Hindi','Tamil','English'][i%4]!,format=['2D','IMAX','Dolby'][i%3]!;const venues=city==='Hyderabad'?['Prasads Multiplex','AMB Cinemas','PVR Next Galleria']:['Sathyam Cinemas','PVR Palazzo','AGS Cinemas'];listings.push({id:i===0?'afterlight':slug(title),category:'movie',title,venue:venues[0]!,city,date:day(i%7),time:'19:20',price:320+i*20,tag:format,language,format,showings:venues.map((venue,j)=>({venue,language,format:['2D','IMAX','Dolby'][j]!,times:['10:15','13:30','16:45','19:20']}))})});
+ eventNames.forEach((title,i)=>listings.push({id:i===0?'static-hearts':slug(title),category:'event',title,venue:['HITEX Exhibition Centre','Shilpakala Vedika','Ravindra Bharathi'][i%3]!,city:i<6?'Hyderabad':'Pune',date:day(i*4),time:'19:30',price:699+i*200,tag:'LIVE',genre:['Indie','Jazz','Electronic','Classical'][i%4]!}));
+ sportNames.forEach((title,i)=>listings.push({id:i===0?'hyd-viz':slug(title),category:'sport',title,venue:['Rajiv Gandhi International Cricket Stadium','Gachibowli Indoor Stadium','Lal Bahadur Shastri Stadium'][i%3]!,city:'Hyderabad',date:day(i*5),time:'18:00',price:450+i*100,tag:'MATCH DAY',sport:['Cricket','Football','Tennis','Athletics','Badminton','Basketball'][i]!}));
+ for(const category of ['bus','train','flight'] as const){const count=category==='bus'?15:12;for(let i=0;i<count;i++){
+  const origin=cities[i<8?0:1+i%3]!,destination=cities[1+i%6]!,dest=origin[0]===destination[0]?cities[0]:destination;
+  const endpoint=(c:typeof cities[number])=>({city:c[0],code:category==='flight'?c[3]:category==='train'?c[1]:c[0].slice(0,3).toUpperCase(),name:category==='flight'?c[4]:category==='train'?c[2]:c[5]});
+  const from=endpoint(origin),to=endpoint(dest),duration=category==='flight'?80+(i%4)*35:category==='train'?420+(i%4)*75:480+(i%5)*60;
+  const depart=new Date(Date.parse(day(i*2%30))+(6+i%17)*3600000),arrival=new Date(depart.getTime()+duration*60000),price=category==='flight'?3600+i*240:category==='train'?550+i*80:650+i*100;
+  const operator=category==='flight'?['Kitewing Air','Copper Sky','Juniper Airways'][i%3]!:category==='train'?['Deccan Meridian Rail','Copperline Rail','Harbour Track'][i%3]!:['Papertrail Coaches','Amber Mile','Nightjar Transit'][i%3]!;
+  const classes=category==='train'?['SL','3A','2A','1A']:category==='flight'?['Economy','Premium','Business']:['Sleeper','Seater'];
+  const fares=classes.map((code,j)=>({code,label:code,price:price+j*(category==='flight'?1800:350),availability:j===3?'WL 04':j===2?'RAC 08':'AVL '+(42-i-j),seats:j===3?0:42-i-j}));
+  listings.push(listingSchema.parse({id:i===0?(category==='bus'?'nightliner':category==='train'?'coast-rail':'sky-601'):category+'-'+(i+1),category,title:operator+' '+(101+i),venue:from.name,city:from.city,date:day(i*2%30),time:depart.toLocaleTimeString('en-GB',{timeZone:'Asia/Kolkata',hour:'2-digit',minute:'2-digit'}),price,tag:classes[0],from,to,departsAt:depart.toISOString(),arrivesAt:arrival.toISOString(),duration,operator,fares,classes,seatTypes:category==='train'?['LB','MB','UB','SL','SU']:classes,ac:category==='bus'?i%3!==0:true,stops:category==='flight'?i%3:0,boardingPoint:from.name,platform:category==='train'?String(1+i%8):undefined,gate:category==='flight'?'G'+(12+i):undefined}));
+ }}
+ const tickets:TicketData[]=listings.filter(l=>['afterlight','monsoon-radio','static-hearts','hyd-viz'].includes(l.id)).map((l,i)=>({...l,date:i===3?day(-4):l.date,serial:'HAY-'+String(42810+i).padStart(6,'0'),seat:['F7','B2','GA-2','B14'][i]!,status:i===3?'past':'upcoming'}));
+ return {listings,tickets};
 }

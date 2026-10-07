@@ -47,3 +47,6 @@
 - Pre-change checkpoint: `../checkpoints/step-01-button-readability-before/project`.
 - Scope: Step 1 only; clicky integration and later fixes await separate approval.
 - Verification: 12 browser contrast/focus checks pass; screenshots at 375/768/1440 in both themes; no browser errors in the checked flows. Existing route test and TypeScript check pass. Slop audit remains at the same 28 pre-existing files, with zero new violations.
+
+## Priority step 1 — expanded catalog
+63 fictional listings with Kolkata-relative dates, full travel endpoints/fares/classes, origin-aware filtering and populated Explore results. Added catalog/schema tests; 28 tests, typecheck and slop audit pass. Windows audit exclusion normalized without changing dormant UI files.

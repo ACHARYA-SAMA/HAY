@@ -73,3 +73,5 @@ main,.page-shell,.section,.hero>*,.filter-layout>*,.booking-layout>*,.ticket,.ti
 
 .route-card h3{font-size:clamp(24px,2.2vw,30px);font-stretch:75%}
 .category-tag.ticket-train{color:var(--on-train)}
+
+.fare-chip{display:inline-flex;border:2px solid var(--ink);padding:6px 8px;font:700 11px var(--font-mono);background:var(--paper-2);color:var(--ink)}.listing-card{min-width:0}
