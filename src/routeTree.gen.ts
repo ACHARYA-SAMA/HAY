@@ -11,15 +11,27 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountRouteImport } from './routes/account'
+import { Route as BusRouteImport } from './routes/bus'
+import { Route as EventsRouteImport } from './routes/events'
 import { Route as ExploreRouteImport } from './routes/explore'
+import { Route as FlightsRouteImport } from './routes/flights'
+import { Route as MoviesRouteImport } from './routes/movies'
+import { Route as SportsRouteImport } from './routes/sports'
 import { Route as StyleguideRouteImport } from './routes/styleguide'
+import { Route as TrainsRouteImport } from './routes/trains'
 import { Route as TravelRouteImport } from './routes/travel'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as BookIdRouteImport } from './routes/book.$id'
+import { Route as BusIdRouteImport } from './routes/bus.$id'
 import { Route as EventIdRouteImport } from './routes/event.$id'
+import { Route as EventsIdRouteImport } from './routes/events.$id'
+import { Route as FlightsIdRouteImport } from './routes/flights.$id'
 import { Route as MovieIdRouteImport } from './routes/movie.$id'
+import { Route as MoviesIdRouteImport } from './routes/movies.$id'
 import { Route as SportIdRouteImport } from './routes/sport.$id'
+import { Route as SportsIdRouteImport } from './routes/sports.$id'
 import { Route as TicketIdRouteImport } from './routes/ticket.$id'
+import { Route as TrainsIdRouteImport } from './routes/trains.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -31,14 +43,44 @@ const AccountRoute = AccountRouteImport.update({
   path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusRoute = BusRouteImport.update({
+  id: '/bus',
+  path: '/bus',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EventsRoute = EventsRouteImport.update({
+  id: '/events',
+  path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExploreRoute = ExploreRouteImport.update({
   id: '/explore',
   path: '/explore',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FlightsRoute = FlightsRouteImport.update({
+  id: '/flights',
+  path: '/flights',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MoviesRoute = MoviesRouteImport.update({
+  id: '/movies',
+  path: '/movies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SportsRoute = SportsRouteImport.update({
+  id: '/sports',
+  path: '/sports',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StyleguideRoute = StyleguideRouteImport.update({
   id: '/styleguide',
   path: '/styleguide',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrainsRoute = TrainsRouteImport.update({
+  id: '/trains',
+  path: '/trains',
   getParentRoute: () => rootRouteImport,
 } as any)
 const TravelRoute = TravelRouteImport.update({
@@ -56,114 +98,222 @@ const BookIdRoute = BookIdRouteImport.update({
   path: '/book/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BusIdRoute = BusIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => BusRoute,
+} as any)
 const EventIdRoute = EventIdRouteImport.update({
   id: '/event/$id',
   path: '/event/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const EventsIdRoute = EventsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => EventsRoute,
+} as any)
+const FlightsIdRoute = FlightsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => FlightsRoute,
 } as any)
 const MovieIdRoute = MovieIdRouteImport.update({
   id: '/movie/$id',
   path: '/movie/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MoviesIdRoute = MoviesIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => MoviesRoute,
+} as any)
 const SportIdRoute = SportIdRouteImport.update({
   id: '/sport/$id',
   path: '/sport/$id',
   getParentRoute: () => rootRouteImport,
+} as any)
+const SportsIdRoute = SportsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => SportsRoute,
 } as any)
 const TicketIdRoute = TicketIdRouteImport.update({
   id: '/ticket/$id',
   path: '/ticket/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TrainsIdRoute = TrainsIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => TrainsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
+  '/bus': typeof BusRouteWithChildren
+  '/events': typeof EventsRouteWithChildren
   '/explore': typeof ExploreRoute
+  '/flights': typeof FlightsRouteWithChildren
+  '/movies': typeof MoviesRouteWithChildren
+  '/sports': typeof SportsRouteWithChildren
   '/styleguide': typeof StyleguideRoute
+  '/trains': typeof TrainsRouteWithChildren
   '/travel': typeof TravelRoute
   '/wallet': typeof WalletRoute
   '/book/$id': typeof BookIdRoute
+  '/bus/$id': typeof BusIdRoute
   '/event/$id': typeof EventIdRoute
+  '/events/$id': typeof EventsIdRoute
+  '/flights/$id': typeof FlightsIdRoute
   '/movie/$id': typeof MovieIdRoute
+  '/movies/$id': typeof MoviesIdRoute
   '/sport/$id': typeof SportIdRoute
+  '/sports/$id': typeof SportsIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/trains/$id': typeof TrainsIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
+  '/bus': typeof BusRouteWithChildren
+  '/events': typeof EventsRouteWithChildren
   '/explore': typeof ExploreRoute
+  '/flights': typeof FlightsRouteWithChildren
+  '/movies': typeof MoviesRouteWithChildren
+  '/sports': typeof SportsRouteWithChildren
   '/styleguide': typeof StyleguideRoute
+  '/trains': typeof TrainsRouteWithChildren
   '/travel': typeof TravelRoute
   '/wallet': typeof WalletRoute
   '/book/$id': typeof BookIdRoute
+  '/bus/$id': typeof BusIdRoute
   '/event/$id': typeof EventIdRoute
+  '/events/$id': typeof EventsIdRoute
+  '/flights/$id': typeof FlightsIdRoute
   '/movie/$id': typeof MovieIdRoute
+  '/movies/$id': typeof MoviesIdRoute
   '/sport/$id': typeof SportIdRoute
+  '/sports/$id': typeof SportsIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/trains/$id': typeof TrainsIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
+  '/bus': typeof BusRouteWithChildren
+  '/events': typeof EventsRouteWithChildren
   '/explore': typeof ExploreRoute
+  '/flights': typeof FlightsRouteWithChildren
+  '/movies': typeof MoviesRouteWithChildren
+  '/sports': typeof SportsRouteWithChildren
   '/styleguide': typeof StyleguideRoute
+  '/trains': typeof TrainsRouteWithChildren
   '/travel': typeof TravelRoute
   '/wallet': typeof WalletRoute
   '/book/$id': typeof BookIdRoute
+  '/bus/$id': typeof BusIdRoute
   '/event/$id': typeof EventIdRoute
+  '/events/$id': typeof EventsIdRoute
+  '/flights/$id': typeof FlightsIdRoute
   '/movie/$id': typeof MovieIdRoute
+  '/movies/$id': typeof MoviesIdRoute
   '/sport/$id': typeof SportIdRoute
+  '/sports/$id': typeof SportsIdRoute
   '/ticket/$id': typeof TicketIdRoute
+  '/trains/$id': typeof TrainsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/account'
+    | '/bus'
+    | '/events'
     | '/explore'
+    | '/flights'
+    | '/movies'
+    | '/sports'
     | '/styleguide'
+    | '/trains'
     | '/travel'
     | '/wallet'
     | '/book/$id'
+    | '/bus/$id'
     | '/event/$id'
+    | '/events/$id'
+    | '/flights/$id'
     | '/movie/$id'
+    | '/movies/$id'
     | '/sport/$id'
+    | '/sports/$id'
     | '/ticket/$id'
+    | '/trains/$id'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/account'
+    | '/bus'
+    | '/events'
     | '/explore'
+    | '/flights'
+    | '/movies'
+    | '/sports'
     | '/styleguide'
+    | '/trains'
     | '/travel'
     | '/wallet'
     | '/book/$id'
+    | '/bus/$id'
     | '/event/$id'
+    | '/events/$id'
+    | '/flights/$id'
     | '/movie/$id'
+    | '/movies/$id'
     | '/sport/$id'
+    | '/sports/$id'
     | '/ticket/$id'
+    | '/trains/$id'
   id:
     | '__root__'
     | '/'
     | '/account'
+    | '/bus'
+    | '/events'
     | '/explore'
+    | '/flights'
+    | '/movies'
+    | '/sports'
     | '/styleguide'
+    | '/trains'
     | '/travel'
     | '/wallet'
     | '/book/$id'
+    | '/bus/$id'
     | '/event/$id'
+    | '/events/$id'
+    | '/flights/$id'
     | '/movie/$id'
+    | '/movies/$id'
     | '/sport/$id'
+    | '/sports/$id'
     | '/ticket/$id'
+    | '/trains/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRoute: typeof AccountRoute
+  BusRoute: typeof BusRouteWithChildren
+  EventsRoute: typeof EventsRouteWithChildren
   ExploreRoute: typeof ExploreRoute
+  FlightsRoute: typeof FlightsRouteWithChildren
+  MoviesRoute: typeof MoviesRouteWithChildren
+  SportsRoute: typeof SportsRouteWithChildren
   StyleguideRoute: typeof StyleguideRoute
+  TrainsRoute: typeof TrainsRouteWithChildren
   TravelRoute: typeof TravelRoute
   WalletRoute: typeof WalletRoute
   BookIdRoute: typeof BookIdRoute
@@ -189,6 +339,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bus': {
+      id: '/bus'
+      path: '/bus'
+      fullPath: '/bus'
+      preLoaderRoute: typeof BusRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/events': {
+      id: '/events'
+      path: '/events'
+      fullPath: '/events'
+      preLoaderRoute: typeof EventsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explore': {
       id: '/explore'
       path: '/explore'
@@ -196,11 +360,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExploreRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/flights': {
+      id: '/flights'
+      path: '/flights'
+      fullPath: '/flights'
+      preLoaderRoute: typeof FlightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/movies': {
+      id: '/movies'
+      path: '/movies'
+      fullPath: '/movies'
+      preLoaderRoute: typeof MoviesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sports': {
+      id: '/sports'
+      path: '/sports'
+      fullPath: '/sports'
+      preLoaderRoute: typeof SportsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/styleguide': {
       id: '/styleguide'
       path: '/styleguide'
       fullPath: '/styleguide'
       preLoaderRoute: typeof StyleguideRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trains': {
+      id: '/trains'
+      path: '/trains'
+      fullPath: '/trains'
+      preLoaderRoute: typeof TrainsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/travel': {
@@ -224,12 +416,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/bus/$id': {
+      id: '/bus/$id'
+      path: '/$id'
+      fullPath: '/bus/$id'
+      preLoaderRoute: typeof BusIdRouteImport
+      parentRoute: typeof BusRoute
+    }
     '/event/$id': {
       id: '/event/$id'
       path: '/event/$id'
       fullPath: '/event/$id'
       preLoaderRoute: typeof EventIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/events/$id': {
+      id: '/events/$id'
+      path: '/$id'
+      fullPath: '/events/$id'
+      preLoaderRoute: typeof EventsIdRouteImport
+      parentRoute: typeof EventsRoute
+    }
+    '/flights/$id': {
+      id: '/flights/$id'
+      path: '/$id'
+      fullPath: '/flights/$id'
+      preLoaderRoute: typeof FlightsIdRouteImport
+      parentRoute: typeof FlightsRoute
     }
     '/movie/$id': {
       id: '/movie/$id'
@@ -238,12 +451,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MovieIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/movies/$id': {
+      id: '/movies/$id'
+      path: '/$id'
+      fullPath: '/movies/$id'
+      preLoaderRoute: typeof MoviesIdRouteImport
+      parentRoute: typeof MoviesRoute
+    }
     '/sport/$id': {
       id: '/sport/$id'
       path: '/sport/$id'
       fullPath: '/sport/$id'
       preLoaderRoute: typeof SportIdRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/sports/$id': {
+      id: '/sports/$id'
+      path: '/$id'
+      fullPath: '/sports/$id'
+      preLoaderRoute: typeof SportsIdRouteImport
+      parentRoute: typeof SportsRoute
     }
     '/ticket/$id': {
       id: '/ticket/$id'
@@ -252,14 +479,92 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TicketIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/trains/$id': {
+      id: '/trains/$id'
+      path: '/$id'
+      fullPath: '/trains/$id'
+      preLoaderRoute: typeof TrainsIdRouteImport
+      parentRoute: typeof TrainsRoute
+    }
   }
 }
+
+interface BusRouteChildren {
+  BusIdRoute: typeof BusIdRoute
+}
+
+const BusRouteChildren: BusRouteChildren = {
+  BusIdRoute: BusIdRoute,
+}
+
+const BusRouteWithChildren = BusRoute._addFileChildren(BusRouteChildren)
+
+interface EventsRouteChildren {
+  EventsIdRoute: typeof EventsIdRoute
+}
+
+const EventsRouteChildren: EventsRouteChildren = {
+  EventsIdRoute: EventsIdRoute,
+}
+
+const EventsRouteWithChildren =
+  EventsRoute._addFileChildren(EventsRouteChildren)
+
+interface FlightsRouteChildren {
+  FlightsIdRoute: typeof FlightsIdRoute
+}
+
+const FlightsRouteChildren: FlightsRouteChildren = {
+  FlightsIdRoute: FlightsIdRoute,
+}
+
+const FlightsRouteWithChildren =
+  FlightsRoute._addFileChildren(FlightsRouteChildren)
+
+interface MoviesRouteChildren {
+  MoviesIdRoute: typeof MoviesIdRoute
+}
+
+const MoviesRouteChildren: MoviesRouteChildren = {
+  MoviesIdRoute: MoviesIdRoute,
+}
+
+const MoviesRouteWithChildren =
+  MoviesRoute._addFileChildren(MoviesRouteChildren)
+
+interface SportsRouteChildren {
+  SportsIdRoute: typeof SportsIdRoute
+}
+
+const SportsRouteChildren: SportsRouteChildren = {
+  SportsIdRoute: SportsIdRoute,
+}
+
+const SportsRouteWithChildren =
+  SportsRoute._addFileChildren(SportsRouteChildren)
+
+interface TrainsRouteChildren {
+  TrainsIdRoute: typeof TrainsIdRoute
+}
+
+const TrainsRouteChildren: TrainsRouteChildren = {
+  TrainsIdRoute: TrainsIdRoute,
+}
+
+const TrainsRouteWithChildren =
+  TrainsRoute._addFileChildren(TrainsRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
+  BusRoute: BusRouteWithChildren,
+  EventsRoute: EventsRouteWithChildren,
   ExploreRoute: ExploreRoute,
+  FlightsRoute: FlightsRouteWithChildren,
+  MoviesRoute: MoviesRouteWithChildren,
+  SportsRoute: SportsRouteWithChildren,
   StyleguideRoute: StyleguideRoute,
+  TrainsRoute: TrainsRouteWithChildren,
   TravelRoute: TravelRoute,
   WalletRoute: WalletRoute,
   BookIdRoute: BookIdRoute,

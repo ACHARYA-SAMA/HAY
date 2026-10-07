@@ -1,3 +1,4 @@
+import {parseCatalogSearch} from '@/services/navigation';
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useCallback, useState, type FormEvent } from "react";
 import { SeatMap } from "@/components/seat-map";
@@ -8,7 +9,7 @@ import { getListing } from "@/services";
 import { contactSchema, priceSeats } from "@/services/checkout";
 import { EMPTY_SEATS, useAppStore } from "@/stores/app-store";
 import { money } from "@/lib/format";
-export const Route=createFileRoute("/book/$id")({loader:({params})=>getListing(params.id),head:()=>({meta:[{title:"Book your ticket — HAY"},{name:"description",content:"Choose seats, add details, review and pay."},{property:"og:title",content:"Book your ticket — HAY"},{property:"og:description",content:"Choose seats, add details, review and pay."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:()=>{const listing=Route.useLoaderData();return <Booking key={listing.id} listing={listing}/>}});
+export const Route=createFileRoute("/book/$id")({validateSearch:parseCatalogSearch,loader:({params})=>getListing(params.id),head:()=>({meta:[{title:"Book your ticket — HAY"},{name:"description",content:"Choose seats, add details, review and pay."},{property:"og:title",content:"Book your ticket — HAY"},{property:"og:description",content:"Choose seats, add details, review and pay."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:()=>{const listing=Route.useLoaderData();return <Booking key={listing.id} listing={listing}/>}});
 function Booking({listing}:{listing:Awaited<ReturnType<typeof getListing>>}){
  const seats=useAppStore(s=>s.selectedByListing[listing.id]??EMPTY_SEATS),expires=useAppStore(s=>s.holds[listing.id]),startHold=useAppStore(s=>s.startHold),release=useAppStore(s=>s.release),purchase=useAppStore(s=>s.purchase);
  const [step,setStep]=useState(1),[paid,setPaid]=useState(false),[name,setName]=useState(""),[email,setEmail]=useState(""),[errors,setErrors]=useState<{name?:string|undefined;email?:string|undefined;payment?:string|undefined}>({});

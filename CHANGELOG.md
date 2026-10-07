@@ -50,3 +50,6 @@
 
 ## Priority step 1 — expanded catalog
 63 fictional listings with Kolkata-relative dates, full travel endpoints/fares/classes, origin-aware filtering and populated Explore results. Added catalog/schema tests; 28 tests, typecheck and slop audit pass. Windows audit exclusion normalized without changing dormant UI files.
+
+## Priority step 2 — six working section pages
+Added URL-driven Movies, Events, Sports, Bus, Trains and Flights pages with section-specific forms/filters, shareable state, loading/empty/error states, detail routes and legacy redirects. Navigation and category slabs point to the new pages. Added square checkboxes, range thumb and keyboard-select controls. 32 unit tests, typecheck, zero slop violations, 36 responsive checks and filter/back/reload/redirect flows pass.

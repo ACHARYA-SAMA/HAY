@@ -1,3 +1,1 @@
-import { getListing } from "@/services";
-import { createFileRoute } from "@tanstack/react-router";import { ListingDetail } from "@/components/listing-detail";
-export const Route=createFileRoute("/sport/$id")({loader:({params})=>getListing(params.id,"sport"),head:()=>({meta:[{title:"Sports tickets — HAY"},{name:"description",content:"Pick a fixture and section."},{property:"og:title",content:"Sports tickets — HAY"},{property:"og:description",content:"Pick a fixture and section."},{property:"og:type",content:"website"},{name:"twitter:card",content:"summary_large_image"}]}),component:Page});function Page(){return <ListingDetail item={Route.useLoaderData()}/>}
+import {createFileRoute,redirect} from '@tanstack/react-router';export const Route=createFileRoute('/sport/$id')({beforeLoad:({params})=>{throw redirect({to:'/sports/$id',params:{id:params.id},replace:true})}});
