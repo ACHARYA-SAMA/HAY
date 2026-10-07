@@ -8,3 +8,4 @@ Default date means all upcoming dates; an explicit day narrows results. Default 
 Step 1: in progress.
 Step 1 complete: 63 listings; default-category and endpoint tests pass; matrix screenshots saved in hay-priority; unit suite 28 passed; slop audit zero. Baseline commit and step commit kept local.
 Step 2 complete: six sections, detail pages and old-route redirects; all 36 viewport/theme checks pass; 32 unit tests and zero slop findings; filters/back/reload/empty/redirect checks pass.
+Step 3 complete: six booking E2Es pass through reload/open; train metadata, class fares and passenger validation tested; 35 unit tests, zero slop findings and 18 viewport/theme checks pass. Detail route nesting corrected after E2E exposed missing detail screens.

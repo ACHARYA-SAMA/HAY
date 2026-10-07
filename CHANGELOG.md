@@ -53,3 +53,9 @@
 
 ## Priority step 2 — six working section pages
 Added URL-driven Movies, Events, Sports, Bus, Trains and Flights pages with section-specific forms/filters, shareable state, loading/empty/error states, detail routes and legacy redirects. Navigation and category slabs point to the new pages. Added square checkboxes, range thumb and keyboard-select controls. 32 unit tests, typecheck, zero slop violations, 36 responsive checks and filter/back/reload/redirect flows pass.
+
+## Priority step 3 — complete journeys
+- Train class/availability tabs, five berth types, validated passenger forms, review and mock payment, class pricing and PNR strips.
+- Travel facts persist through summary, receipt, wallet and ticket; movie venue/showtime choices persist too. New serials use HAY-, with legacy serial migration.
+- Fixed detail route nesting exposed by full-flow tests. Added six Playwright booking tests through wallet reload and ticket opening.
+- Verified: 35 unit tests, six category E2Es, TypeScript, zero slop findings, 18 viewport/theme checks.

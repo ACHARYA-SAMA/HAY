@@ -22,16 +22,16 @@ import { Route as TrainsRouteImport } from './routes/trains'
 import { Route as TravelRouteImport } from './routes/travel'
 import { Route as WalletRouteImport } from './routes/wallet'
 import { Route as BookIdRouteImport } from './routes/book.$id'
-import { Route as BusIdRouteImport } from './routes/bus.$id'
+import { Route as BusIdRouteImport } from './routes/bus_.$id'
 import { Route as EventIdRouteImport } from './routes/event.$id'
-import { Route as EventsIdRouteImport } from './routes/events.$id'
-import { Route as FlightsIdRouteImport } from './routes/flights.$id'
+import { Route as EventsIdRouteImport } from './routes/events_.$id'
+import { Route as FlightsIdRouteImport } from './routes/flights_.$id'
 import { Route as MovieIdRouteImport } from './routes/movie.$id'
-import { Route as MoviesIdRouteImport } from './routes/movies.$id'
+import { Route as MoviesIdRouteImport } from './routes/movies_.$id'
 import { Route as SportIdRouteImport } from './routes/sport.$id'
-import { Route as SportsIdRouteImport } from './routes/sports.$id'
+import { Route as SportsIdRouteImport } from './routes/sports_.$id'
 import { Route as TicketIdRouteImport } from './routes/ticket.$id'
-import { Route as TrainsIdRouteImport } from './routes/trains.$id'
+import { Route as TrainsIdRouteImport } from './routes/trains_.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -99,9 +99,9 @@ const BookIdRoute = BookIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const BusIdRoute = BusIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => BusRoute,
+  id: '/bus_/$id',
+  path: '/bus/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const EventIdRoute = EventIdRouteImport.update({
   id: '/event/$id',
@@ -109,14 +109,14 @@ const EventIdRoute = EventIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const EventsIdRoute = EventsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => EventsRoute,
+  id: '/events_/$id',
+  path: '/events/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const FlightsIdRoute = FlightsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => FlightsRoute,
+  id: '/flights_/$id',
+  path: '/flights/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const MovieIdRoute = MovieIdRouteImport.update({
   id: '/movie/$id',
@@ -124,9 +124,9 @@ const MovieIdRoute = MovieIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const MoviesIdRoute = MoviesIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => MoviesRoute,
+  id: '/movies_/$id',
+  path: '/movies/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const SportIdRoute = SportIdRouteImport.update({
   id: '/sport/$id',
@@ -134,9 +134,9 @@ const SportIdRoute = SportIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const SportsIdRoute = SportsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => SportsRoute,
+  id: '/sports_/$id',
+  path: '/sports/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const TicketIdRoute = TicketIdRouteImport.update({
   id: '/ticket/$id',
@@ -144,22 +144,22 @@ const TicketIdRoute = TicketIdRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const TrainsIdRoute = TrainsIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
-  getParentRoute: () => TrainsRoute,
+  id: '/trains_/$id',
+  path: '/trains/$id',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
-  '/bus': typeof BusRouteWithChildren
-  '/events': typeof EventsRouteWithChildren
+  '/bus': typeof BusRoute
+  '/events': typeof EventsRoute
   '/explore': typeof ExploreRoute
-  '/flights': typeof FlightsRouteWithChildren
-  '/movies': typeof MoviesRouteWithChildren
-  '/sports': typeof SportsRouteWithChildren
+  '/flights': typeof FlightsRoute
+  '/movies': typeof MoviesRoute
+  '/sports': typeof SportsRoute
   '/styleguide': typeof StyleguideRoute
-  '/trains': typeof TrainsRouteWithChildren
+  '/trains': typeof TrainsRoute
   '/travel': typeof TravelRoute
   '/wallet': typeof WalletRoute
   '/book/$id': typeof BookIdRoute
@@ -177,14 +177,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
-  '/bus': typeof BusRouteWithChildren
-  '/events': typeof EventsRouteWithChildren
+  '/bus': typeof BusRoute
+  '/events': typeof EventsRoute
   '/explore': typeof ExploreRoute
-  '/flights': typeof FlightsRouteWithChildren
-  '/movies': typeof MoviesRouteWithChildren
-  '/sports': typeof SportsRouteWithChildren
+  '/flights': typeof FlightsRoute
+  '/movies': typeof MoviesRoute
+  '/sports': typeof SportsRoute
   '/styleguide': typeof StyleguideRoute
-  '/trains': typeof TrainsRouteWithChildren
+  '/trains': typeof TrainsRoute
   '/travel': typeof TravelRoute
   '/wallet': typeof WalletRoute
   '/book/$id': typeof BookIdRoute
@@ -203,27 +203,27 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
-  '/bus': typeof BusRouteWithChildren
-  '/events': typeof EventsRouteWithChildren
+  '/bus': typeof BusRoute
+  '/events': typeof EventsRoute
   '/explore': typeof ExploreRoute
-  '/flights': typeof FlightsRouteWithChildren
-  '/movies': typeof MoviesRouteWithChildren
-  '/sports': typeof SportsRouteWithChildren
+  '/flights': typeof FlightsRoute
+  '/movies': typeof MoviesRoute
+  '/sports': typeof SportsRoute
   '/styleguide': typeof StyleguideRoute
-  '/trains': typeof TrainsRouteWithChildren
+  '/trains': typeof TrainsRoute
   '/travel': typeof TravelRoute
   '/wallet': typeof WalletRoute
   '/book/$id': typeof BookIdRoute
-  '/bus/$id': typeof BusIdRoute
+  '/bus_/$id': typeof BusIdRoute
   '/event/$id': typeof EventIdRoute
-  '/events/$id': typeof EventsIdRoute
-  '/flights/$id': typeof FlightsIdRoute
+  '/events_/$id': typeof EventsIdRoute
+  '/flights_/$id': typeof FlightsIdRoute
   '/movie/$id': typeof MovieIdRoute
-  '/movies/$id': typeof MoviesIdRoute
+  '/movies_/$id': typeof MoviesIdRoute
   '/sport/$id': typeof SportIdRoute
-  '/sports/$id': typeof SportsIdRoute
+  '/sports_/$id': typeof SportsIdRoute
   '/ticket/$id': typeof TicketIdRoute
-  '/trains/$id': typeof TrainsIdRoute
+  '/trains_/$id': typeof TrainsIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -291,36 +291,42 @@ export interface FileRouteTypes {
     | '/travel'
     | '/wallet'
     | '/book/$id'
-    | '/bus/$id'
+    | '/bus_/$id'
     | '/event/$id'
-    | '/events/$id'
-    | '/flights/$id'
+    | '/events_/$id'
+    | '/flights_/$id'
     | '/movie/$id'
-    | '/movies/$id'
+    | '/movies_/$id'
     | '/sport/$id'
-    | '/sports/$id'
+    | '/sports_/$id'
     | '/ticket/$id'
-    | '/trains/$id'
+    | '/trains_/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRoute: typeof AccountRoute
-  BusRoute: typeof BusRouteWithChildren
-  EventsRoute: typeof EventsRouteWithChildren
+  BusRoute: typeof BusRoute
+  EventsRoute: typeof EventsRoute
   ExploreRoute: typeof ExploreRoute
-  FlightsRoute: typeof FlightsRouteWithChildren
-  MoviesRoute: typeof MoviesRouteWithChildren
-  SportsRoute: typeof SportsRouteWithChildren
+  FlightsRoute: typeof FlightsRoute
+  MoviesRoute: typeof MoviesRoute
+  SportsRoute: typeof SportsRoute
   StyleguideRoute: typeof StyleguideRoute
-  TrainsRoute: typeof TrainsRouteWithChildren
+  TrainsRoute: typeof TrainsRoute
   TravelRoute: typeof TravelRoute
   WalletRoute: typeof WalletRoute
   BookIdRoute: typeof BookIdRoute
+  BusIdRoute: typeof BusIdRoute
   EventIdRoute: typeof EventIdRoute
+  EventsIdRoute: typeof EventsIdRoute
+  FlightsIdRoute: typeof FlightsIdRoute
   MovieIdRoute: typeof MovieIdRoute
+  MoviesIdRoute: typeof MoviesIdRoute
   SportIdRoute: typeof SportIdRoute
+  SportsIdRoute: typeof SportsIdRoute
   TicketIdRoute: typeof TicketIdRoute
+  TrainsIdRoute: typeof TrainsIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -416,12 +422,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BookIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/bus/$id': {
-      id: '/bus/$id'
-      path: '/$id'
+    '/bus_/$id': {
+      id: '/bus_/$id'
+      path: '/bus/$id'
       fullPath: '/bus/$id'
       preLoaderRoute: typeof BusIdRouteImport
-      parentRoute: typeof BusRoute
+      parentRoute: typeof rootRouteImport
     }
     '/event/$id': {
       id: '/event/$id'
@@ -430,19 +436,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/events/$id': {
-      id: '/events/$id'
-      path: '/$id'
+    '/events_/$id': {
+      id: '/events_/$id'
+      path: '/events/$id'
       fullPath: '/events/$id'
       preLoaderRoute: typeof EventsIdRouteImport
-      parentRoute: typeof EventsRoute
+      parentRoute: typeof rootRouteImport
     }
-    '/flights/$id': {
-      id: '/flights/$id'
-      path: '/$id'
+    '/flights_/$id': {
+      id: '/flights_/$id'
+      path: '/flights/$id'
       fullPath: '/flights/$id'
       preLoaderRoute: typeof FlightsIdRouteImport
-      parentRoute: typeof FlightsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/movie/$id': {
       id: '/movie/$id'
@@ -451,12 +457,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MovieIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/movies/$id': {
-      id: '/movies/$id'
-      path: '/$id'
+    '/movies_/$id': {
+      id: '/movies_/$id'
+      path: '/movies/$id'
       fullPath: '/movies/$id'
       preLoaderRoute: typeof MoviesIdRouteImport
-      parentRoute: typeof MoviesRoute
+      parentRoute: typeof rootRouteImport
     }
     '/sport/$id': {
       id: '/sport/$id'
@@ -465,12 +471,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SportIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/sports/$id': {
-      id: '/sports/$id'
-      path: '/$id'
+    '/sports_/$id': {
+      id: '/sports_/$id'
+      path: '/sports/$id'
       fullPath: '/sports/$id'
       preLoaderRoute: typeof SportsIdRouteImport
-      parentRoute: typeof SportsRoute
+      parentRoute: typeof rootRouteImport
     }
     '/ticket/$id': {
       id: '/ticket/$id'
@@ -479,99 +485,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TicketIdRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trains/$id': {
-      id: '/trains/$id'
-      path: '/$id'
+    '/trains_/$id': {
+      id: '/trains_/$id'
+      path: '/trains/$id'
       fullPath: '/trains/$id'
       preLoaderRoute: typeof TrainsIdRouteImport
-      parentRoute: typeof TrainsRoute
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface BusRouteChildren {
-  BusIdRoute: typeof BusIdRoute
-}
-
-const BusRouteChildren: BusRouteChildren = {
-  BusIdRoute: BusIdRoute,
-}
-
-const BusRouteWithChildren = BusRoute._addFileChildren(BusRouteChildren)
-
-interface EventsRouteChildren {
-  EventsIdRoute: typeof EventsIdRoute
-}
-
-const EventsRouteChildren: EventsRouteChildren = {
-  EventsIdRoute: EventsIdRoute,
-}
-
-const EventsRouteWithChildren =
-  EventsRoute._addFileChildren(EventsRouteChildren)
-
-interface FlightsRouteChildren {
-  FlightsIdRoute: typeof FlightsIdRoute
-}
-
-const FlightsRouteChildren: FlightsRouteChildren = {
-  FlightsIdRoute: FlightsIdRoute,
-}
-
-const FlightsRouteWithChildren =
-  FlightsRoute._addFileChildren(FlightsRouteChildren)
-
-interface MoviesRouteChildren {
-  MoviesIdRoute: typeof MoviesIdRoute
-}
-
-const MoviesRouteChildren: MoviesRouteChildren = {
-  MoviesIdRoute: MoviesIdRoute,
-}
-
-const MoviesRouteWithChildren =
-  MoviesRoute._addFileChildren(MoviesRouteChildren)
-
-interface SportsRouteChildren {
-  SportsIdRoute: typeof SportsIdRoute
-}
-
-const SportsRouteChildren: SportsRouteChildren = {
-  SportsIdRoute: SportsIdRoute,
-}
-
-const SportsRouteWithChildren =
-  SportsRoute._addFileChildren(SportsRouteChildren)
-
-interface TrainsRouteChildren {
-  TrainsIdRoute: typeof TrainsIdRoute
-}
-
-const TrainsRouteChildren: TrainsRouteChildren = {
-  TrainsIdRoute: TrainsIdRoute,
-}
-
-const TrainsRouteWithChildren =
-  TrainsRoute._addFileChildren(TrainsRouteChildren)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
-  BusRoute: BusRouteWithChildren,
-  EventsRoute: EventsRouteWithChildren,
+  BusRoute: BusRoute,
+  EventsRoute: EventsRoute,
   ExploreRoute: ExploreRoute,
-  FlightsRoute: FlightsRouteWithChildren,
-  MoviesRoute: MoviesRouteWithChildren,
-  SportsRoute: SportsRouteWithChildren,
+  FlightsRoute: FlightsRoute,
+  MoviesRoute: MoviesRoute,
+  SportsRoute: SportsRoute,
   StyleguideRoute: StyleguideRoute,
-  TrainsRoute: TrainsRouteWithChildren,
+  TrainsRoute: TrainsRoute,
   TravelRoute: TravelRoute,
   WalletRoute: WalletRoute,
   BookIdRoute: BookIdRoute,
+  BusIdRoute: BusIdRoute,
   EventIdRoute: EventIdRoute,
+  EventsIdRoute: EventsIdRoute,
+  FlightsIdRoute: FlightsIdRoute,
   MovieIdRoute: MovieIdRoute,
+  MoviesIdRoute: MoviesIdRoute,
   SportIdRoute: SportIdRoute,
+  SportsIdRoute: SportsIdRoute,
   TicketIdRoute: TicketIdRoute,
+  TrainsIdRoute: TrainsIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
