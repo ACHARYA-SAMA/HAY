@@ -71,7 +71,7 @@ function Home() {
         <h2 className="section-title my-6">PACK LIGHT.</h2>
         <div className="route-grid">
           {travel.map((x) => (
-            <article className="route-card" key={x.id}>
+            <article className={`route-card ticket-${x.category}`} key={x.id}>
               <span className={`category-tag ticket-${x.category}`}>{x.category}</span>
               <h3 className="mt-5 text-3xl font-black uppercase">
                 {x.from?.city} → {x.to?.city}
